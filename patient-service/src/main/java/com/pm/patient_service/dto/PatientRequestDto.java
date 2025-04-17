@@ -1,40 +1,33 @@
-package com.pm.patient_service.model;
+package com.pm.patient_service.dto;
 
-
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
+public class PatientRequestDto {
 
-@Entity
-public class Patient {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
     @NotNull(message = "name is required")
     private String name;
-
-    @NotNull(message = "email is required")
+    @NotNull(message = "Email is required")
     @Email(message = "Email should be valid")
-    @Column(unique = true)
     private String email;
-
-    @NotNull(message = "Null is not allowed")
-    private LocalDate dateOfBirth;
-
     @NotNull(message = "address is required")
     private String address;
-
-    @NotNull(message = "is not allowed to be null")
+    @NotNull(message = "null is not allowed")
+    private LocalDate dateOfBirth;
+    @NotNull(message = "should be valid")
     private LocalDate registeredDate;
 
+    public LocalDate getRegisteredDate() {
+        return registeredDate;
+    }
+
+    public void setRegisteredDate(LocalDate registeredDate) {
+        this.registeredDate = registeredDate;
+    }
 
     public UUID getId() {
         return id;
@@ -60,14 +53,6 @@ public class Patient {
         this.email = email;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -76,11 +61,11 @@ public class Patient {
         this.address = address;
     }
 
-    public LocalDate getRegisteredDate() {
-        return registeredDate;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setRegisteredDate(LocalDate registeredDate) {
-        this.registeredDate = registeredDate;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }

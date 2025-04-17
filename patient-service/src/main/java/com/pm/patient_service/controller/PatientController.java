@@ -1,11 +1,12 @@
 package com.pm.patient_service.controller;
 
-import com.pm.patient_service.dto.PatientResponeDto;
+import com.pm.patient_service.dto.PatientRequestDto;
+import com.pm.patient_service.dto.PatientResponseDto;
 import com.pm.patient_service.service.PatientService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,17 +14,25 @@ import java.util.List;
 @RequestMapping("/api/v1/patients")
 public class PatientController {
 
-    private final PatientService service;
 
-    public PatientController(PatientService service) {
-        this.service = service;
+    private final PatientService patientService;
+
+    public PatientController(PatientService patientService){
+        this.patientService = patientService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<PatientResponeDto>> getAllPatients(){
+  @GetMapping
+    public ResponseEntity<List<PatientResponseDto>> getAllPatients(){
 
-        List<PatientResponeDto> patients = service.getPatients();
+      List<PatientResponseDto> patients = patientService.getPatients();
+      return ResponseEntity.ok().body(patients);
+  }
 
-        return ResponseEntity.ok().body(patients);
-    }
+  @PostMapping("/create")
+    public ResponseEntity<String> createPatient(
+            @RequestBody @Valid PatientRequestDto request
+  ){
+
+        return ResponseEntity.ok(patientService.createPatient(request));
+  }
 }
