@@ -14,19 +14,17 @@ import java.util.List;
 @Service
 public class PatientService {
 
-
-   private final PatientRepository patientRepository;
+    private final PatientRepository patientRepository;
 
     public PatientService(PatientRepository patientRepository) {
         this.patientRepository = patientRepository;
     }
 
+    //service always convert domain entity to response dto that we want to return to customer
 
-
-    public List<PatientResponseDto> getPatients() {
+    public List<PatientResponseDto> getAllPatients(){
 
         List<Patient> patients = patientRepository.findAll();
-
 
 //        List<PatientResponseDto> patientResponseDtos = patients
 //                .stream()
@@ -35,12 +33,8 @@ public class PatientService {
         return patients
                 .stream()
                 .map(PatientMapper::toDto).toList();
+
+
     }
 
-
-    public String createPatient(PatientRequestDto request) {
-
-        var patient = patientRepository.save(PatientMapper.toPatientDto(request));
-        return patient.getId().toString();
-    }
 }

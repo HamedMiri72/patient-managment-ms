@@ -18,23 +18,22 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @NotNull(message = "name is required")
+    @NotNull(message = "Patient name is required")
     private String name;
 
     @NotNull(message = "email is required")
-    @Email(message = "Email should be valid")
+    @Email(message = "Email must be valid")
     @Column(unique = true)
     private String email;
 
-    @NotNull(message = "Null is not allowed")
-    private LocalDate dateOfBirth;
-
-    @NotNull(message = "address is required")
+    @NotNull(message = "Addres is required")
     private String address;
 
-    @NotNull(message = "is not allowed to be null")
-    private LocalDate registeredDate;
+    @NotNull(message = "date of birth is required")
+    private LocalDate dateOfBirth;
 
+    @NotNull(message = "Register date must be provided")
+    private LocalDate registeredDate;
 
     public UUID getId() {
         return id;
@@ -60,20 +59,20 @@ public class Patient {
         this.email = email;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public LocalDate getRegisteredDate() {

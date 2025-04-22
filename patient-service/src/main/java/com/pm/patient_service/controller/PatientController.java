@@ -14,25 +14,16 @@ import java.util.List;
 @RequestMapping("/api/v1/patients")
 public class PatientController {
 
-
     private final PatientService patientService;
 
     public PatientController(PatientService patientService){
         this.patientService = patientService;
     }
 
-  @GetMapping
+    @GetMapping
     public ResponseEntity<List<PatientResponseDto>> getAllPatients(){
 
-      List<PatientResponseDto> patients = patientService.getPatients();
-      return ResponseEntity.ok().body(patients);
-  }
-
-  @PostMapping("/create")
-    public ResponseEntity<String> createPatient(
-            @RequestBody @Valid PatientRequestDto request
-  ){
-
-        return ResponseEntity.ok(patientService.createPatient(request));
-  }
+        List<PatientResponseDto> patients = patientService.getAllPatients();
+        return ResponseEntity.ok().body(patients);
+    }
 }
