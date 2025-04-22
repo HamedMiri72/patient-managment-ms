@@ -37,4 +37,13 @@ public class PatientService {
 
     }
 
+    public PatientResponseDto createPatient(PatientRequestDto patientRequestDto){
+
+        Patient newPatient = patientRepository.save(PatientMapper.toPatient(patientRequestDto));
+
+        return PatientMapper.toDto(newPatient);
+    }
+
+
+
 }

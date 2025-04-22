@@ -1,41 +1,30 @@
 package com.pm.patient_service.dto;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 public class PatientRequestDto {
 
-    private UUID id;
-    @NotNull(message = "name is required")
+    @NotBlank(message = "Name is required")
+    @Size(max = 100, message = "Name can not exceed 100 characters")
     private String name;
-    @NotNull(message = "Email is required")
+
+    @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
     private String email;
-    @NotNull(message = "address is required")
+
+    @NotBlank(message = "Address is required")
     private String address;
-    @NotNull(message = "null is not allowed")
-    private LocalDate dateOfBirth;
-    @NotNull(message = "should be valid")
-    private LocalDate registeredDate;
 
-    public LocalDate getRegisteredDate() {
-        return registeredDate;
-    }
+    @NotBlank(message = "Date of birth is required")
+    private String dateOfBirth;
 
-    public void setRegisteredDate(LocalDate registeredDate) {
-        this.registeredDate = registeredDate;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
+    private String RegisteredDate;
 
     public String getName() {
         return name;
@@ -61,11 +50,19 @@ public class PatientRequestDto {
         this.address = address;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getRegisteredDate() {
+        return RegisteredDate;
+    }
+
+    public void setRegisteredDate(String registeredDate) {
+        RegisteredDate = registeredDate;
     }
 }
