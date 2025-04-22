@@ -16,6 +16,16 @@ public class GlobalException {
 
 
 
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<Map<String, String>> handleEmailAlreadyExistsException(EmailAlreadyExistsException exp){
+
+        var errors = new HashMap<String, String>();
+
+        errors.put("message", "Email address already exists");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ResponseError> handler(MethodArgumentNotValidException exp){
 
