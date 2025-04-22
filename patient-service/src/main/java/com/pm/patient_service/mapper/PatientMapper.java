@@ -25,16 +25,17 @@ public class PatientMapper {
 
     }
 
-    public static Patient toPatient(PatientRequestDto patientRequestDto){
+    public static Patient toPatient(@Valid PatientRequestDto patientRequestDto) {
 
-        Patient newPatient = new Patient();
+        Patient patient = new Patient();
 
-        newPatient.setName(patientRequestDto.getName());
-        newPatient.setEmail(patientRequestDto.getEmail());
-        newPatient.setAddress(patientRequestDto.getAddress());
-        newPatient.setDateOfBirth(LocalDate.parse(patientRequestDto.getDateOfBirth()));
-        newPatient.setRegisteredDate(LocalDate.now());
+        patient.setName(patientRequestDto.getName());
+        patient.setEmail(patientRequestDto.getEmail());
+        patient.setAddress(patientRequestDto.getAddress());
+        patient.setDateOfBirth(LocalDate.parse(patientRequestDto.getDateOfBirth()));
+        patient.setRegisteredDate(LocalDate.now());
 
-        return newPatient;
+        return patient;
     }
+
 }
