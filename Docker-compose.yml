@@ -1,0 +1,55 @@
+services:
+  postgres:
+    container_name: patient_ms_pg_sql
+    image: postgres
+    environment:
+      POSTGRES_USER: hamedmiri
+      POSTGRES_PASSWORD: 85192577
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5000:5432
+    networks:
+      - patient_microservices_net
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: patient_ms_pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - 5051:80
+    networks:
+      - patient_microservices_net
+    restart: unless-stopped
+
+  patient-service:
+    container_name: patient_ms_app
+    build:
+      context: ./services/patient-service
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+    depends_on:
+      - postgres
+    networks:
+      - patient_microservices_net
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: hamedmiri
+      SPRING_DATASOURCE_PASSWORD: 85192577
+
+
+networks:
+  patient_microservices_net:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
