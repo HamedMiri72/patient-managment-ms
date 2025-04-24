@@ -76,25 +76,26 @@
 		</dependency>
 
 
+
 	</dependencies>
 
 	<build>
 		<extensions>
+			<!-- Ensure OS compatibility for protoc -->
 			<extension>
 				<groupId>kr.motd.maven</groupId>
 				<artifactId>os-maven-plugin</artifactId>
 				<version>1.7.0</version>
 			</extension>
 		</extensions>
-
 		<plugins>
-			<!-- Spring Boot plugin -->
+			<!-- Spring boot / maven  -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<!-- Protobuf and gRPC code generation -->
+			<!-- PROTO -->
 			<plugin>
 				<groupId>org.xolstice.maven.plugins</groupId>
 				<artifactId>protobuf-maven-plugin</artifactId>
@@ -113,20 +114,9 @@
 					</execution>
 				</executions>
 			</plugin>
-
-			<!-- Fix for Mockito Java Agent warning -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.2.5</version>
-				<configuration>
-					<argLine>
-						-javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/1.15.11/byte-buddy-agent-1.15.11.jar
-					</argLine>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
+
 
 
 
