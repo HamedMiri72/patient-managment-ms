@@ -45,6 +45,25 @@ services:
       SPRING_DATASOURCE_USERNAME: hamedmiri
       SPRING_DATASOURCE_PASSWORD: 85192577
 
+  billing-service:
+    container_name: billing-ms-app
+    build:
+      context: ./services/billing-service
+      dockerfile: Dockerfile
+    ports:
+      - 4001:4001
+      - 9001:9001
+    depends_on:
+      - postgres
+    networks:
+      - patient_microservices_net
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: hamedmiri
+      SPRING_DATASOURCE_PASSWORD: 85192577
+
+
+
 
 networks:
   patient_microservices_net:
